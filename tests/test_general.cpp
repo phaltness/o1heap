@@ -111,7 +111,7 @@ auto init(void* const       base,
 
         REQUIRE(heap->nonempty_bin_mask > 0U);
         REQUIRE((heap->nonempty_bin_mask & (heap->nonempty_bin_mask - 1U)) == 0);
-        for (auto i = 0U; i < std::size(heap->bins); i++)
+        for (auto i = 0UL; i < std::size(heap->bins); i++)
         {
             const std::size_t min = Fragment::SizeMin << i;
             const std::size_t max = (Fragment::SizeMin << i) * 2U - 1U;
