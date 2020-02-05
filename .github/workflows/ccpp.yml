@@ -13,7 +13,7 @@ jobs:
       run:  |
             wget https://apt.llvm.org/llvm.sh
             chmod +x llvm.sh 
-            sudo ./llvm.sh 10
+            sudo ./llvm.sh 9
     - name: cmake
       run: pushd tests && cmake . && popd
     - name: make
