@@ -15,7 +15,7 @@ jobs:
             chmod +x llvm.sh 
             sudo ./llvm.sh 9
     - name: get clang-tidy
-      run:  sudo apt install clang-tidy-9 clang-format-9
+      run:  sudo apt install gcc-c++ clang-tidy-9 clang-format-9 -y
     - name: cmake
       run: pushd tests && cmake . && popd
     - name: make
