@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: get_clang
-      run: sudo apt install -qq cclang-6.0 lang-tools-6.0 -y
+      run: sudo apt install -qq clang-6.0 clang-tools-6.0 -y
     - name: cmake
       run: pushd tests && cmake . && popd
     - name: make
