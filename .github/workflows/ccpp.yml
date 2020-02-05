@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: get_clang
       run:  sudo wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add - # Fingerprint: 6084 F3CF 814B 57C1 CF12 EFD5 15CF 4D18 AF4F 7421
-            apt-get install clang-10 lldb-10 lld-10
+      run:  apt-get install clang-10 lldb-10 lld-10
             
     - name: cmake
       run: pushd tests && cmake . && popd
