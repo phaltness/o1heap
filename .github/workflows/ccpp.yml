@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: get_clang
+    - run: apt install clang-9
     - uses: actions/checkout@v2
     - name: cmake
       run: pushd tests && cmake . && popd
