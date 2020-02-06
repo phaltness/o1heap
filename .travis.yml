@@ -5,7 +5,7 @@ services:
 
 before_install:
 - docker build -t heap . --file DockerFile
-- docker run -it --user 1000 -v $PWD/:/work:z heap /bin/bash -c "cd /work; cd tests; mkdir build; cd build; cmake ..; make -j4; make test"
+- docker run -it --user 0 -v $PWD/:/work:z heap /bin/bash -c "cd /work; cd tests; mkdir build; cd build; cmake ..; make -j4; make test" --privileged
 
 script:
 - cd tests; mkdir build; cd build; cmake ..; make -j4; make test
