@@ -1,0 +1,88 @@
+FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get install  -y apt-utils 
+RUN apt-get install  -y locales
+
+# Set the locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+# Install dependencies
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update
+RUN apt-get install -qq \
+    git \
+    wget \
+    unzip \
+    build-essential \
+    cmake \
+    gcc \
+    libcunit1-dev \
+    libudev-dev \
+    automake \
+    gcc-arm-linux-gnueabihf \
+    python-dev \
+    python-pip \
+    gawk \
+    diffstat \
+    lsb-release
+
+RUN apt-get install -qq \
+    software-properties-common \
+    openssl \
+    libssl-dev
+
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3.tar.gz
+RUN tar xvzf cmake-3.16.3.tar.gz
+RUN cd cmake-3.16.3 && ./bootstrap && make -j4 && make install
+
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 9
+
+RUN apt-get install -qq \
+    libc++-dev \
+    clang-tidy-9 \
+    clang-format-9 \
+    clang-tools \
+    clang \
+    libc++-dev \
+    libc++1 \
+    libc++abi-dev \
+    libc++abi1 \
+    libclang-dev \
+    libclang1 \
+    libomp-dev \
+    libomp5 \
+    lld \
+    lldb \
+    llvm-dev \
+    llvm-runtime \
+    llvm
+
+RUN apt-get install -qq \
+    texinfo \
+    gcc-multilib \
+    g++-multilib \
+    chrpath \
+    socat \
+    cpio \
+    python3 \
+    python3-pip \
+    iputils-ping
+
+# replace dash with bash
+RUN cp /bin/bash /bin/sh
+
+# Grab the checked out source
+RUN mkdir -p /work
+RUN chmod -R 777 /work
+
+# creating user
+RUN git config --global user.email "phaltness@gmail.com"
+RUN git config --global user.name "root"
+
+WORKDIR /work
+
