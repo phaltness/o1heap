@@ -3,9 +3,17 @@ language: cpp
 services:
   - docker
 
+cache:
+  directories:
+  - docker_images
+
 before_install:
-- docker build -t heap . --file DockerFile
-- docker run -it --user 0 -v $PWD/:/work:z heap /bin/bash -c "cd /work; cd tests; mkdir build; cd build; cmake ..; make -j4; make test" --privileged
+  - docker load -i docker_images/images.tar || true
+  - docker build -t heap . --file DockerFile
+  - docker run -it --user 0 -v $PWD/:/work:z heap /bin/bash -c "cd /work; cd tests; mkdir build; cd build; cmake ..; make -j4; make test" --privileged
+
+before_cache:
+  - docker save -o docker_images/images.tar $(docker images -a -q)
 
 script:
-- cd tests; mkdir build; cd build; cmake ..; make -j4; make test
+  - cd tests; mkdir build; cd build; cmake ..; make -j4; make test
