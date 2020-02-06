@@ -16,4 +16,4 @@ before_cache:
   - docker save -o docker_images/images.tar $(docker images -a -q)
 
 script:
-  - cd tests; mkdir build; cd build; cmake ..; make -j4; make test
+  - cd tests/build; cmake ..; make -j4; make test
